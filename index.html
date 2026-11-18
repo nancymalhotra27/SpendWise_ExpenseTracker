@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Spendwise — Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Spendwise home">
+        <span class="brand-mark">₹</span>
+        <span>spendwise</span>
+      </a>
+      <span class="today-label" id="todayLabel"></span>
+    </header>
+
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">YOUR MONEY, IN FOCUS</p>
+        <h1>Expense tracker</h1>
+        <p class="subheading">A clearer view of where your money goes.</p>
+      </div>
+      <div class="month-chip"><span class="live-dot"></span> Personal dashboard</div>
+    </section>
+
+    <section class="summary-grid" aria-label="Expense summary">
+      <article class="summary-card total-card">
+        <div class="summary-top">
+          <span class="summary-label">Spent this month</span>
+          <span class="summary-icon">↗</span>
+        </div>
+        <p class="summary-value" id="monthlyTotal">₹0.00</p>
+        <p class="summary-note" id="monthCaption">Current month</p>
+      </article>
+      <article class="summary-card">
+        <div class="summary-top">
+          <span class="summary-label">All-time expenses</span>
+          <span class="summary-icon soft">▤</span>
+        </div>
+        <p class="summary-value dark-value" id="allTimeTotal">₹0.00</p>
+        <p class="summary-note">Across all recorded entries</p>
+      </article>
+      <article class="summary-card">
+        <div class="summary-top">
+          <span class="summary-label">Transactions</span>
+          <span class="summary-icon soft">⌁</span>
+        </div>
+        <p class="summary-value dark-value" id="expenseCount">0</p>
+        <p class="summary-note">Expenses recorded</p>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <aside class="panel form-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">QUICK ENTRY</p>
+            <h2 id="formHeading">Add an expense</h2>
+          </div>
+          <span class="plus-badge" id="formIcon">＋</span>
+        </div>
+        <form id="expenseForm" novalidate>
+          <input type="hidden" id="expenseId">
+          <label for="title">Expense title</label>
+          <input id="title" name="title" type="text" maxlength="70" placeholder="e.g. Grocery shopping" required>
+          <div class="field-row">
+            <div class="field">
+              <label for="amount">Amount (₹)</label>
+              <div class="amount-wrap"><span>₹</span><input id="amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required></div>
+            </div>
+            <div class="field">
+              <label for="category">Category</label>
+              <select id="category" name="category">
+                <option>Food</option>
+                <option>Transport</option>
+                <option>Entertainment</option>
+                <option>Utilities</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <label for="date">Date</label>
+          <input id="date" name="date" type="date" required>
+          <p class="form-error" id="formError" role="alert"></p>
+          <button class="primary-button" id="submitButton" type="submit">＋ Add expense</button>
+          <button class="cancel-button hidden" id="cancelEdit" type="button">Cancel editing</button>
+        </form>
+        <div class="privacy-note"><span>▣</span> Your data stays in this browser, saved locally.</div>
+      </aside>
+
+      <section class="panel expenses-panel">
+        <div class="expenses-heading">
+          <div>
+            <p class="eyebrow">YOUR ACTIVITY</p>
+            <h2>Recent expenses</h2>
+          </div>
+          <span class="count-pill" id="visibleCount">0 entries</span>
+        </div>
+        <div class="filters">
+          <div class="filter-control">
+            <label for="categoryFilter">Category</label>
+            <select id="categoryFilter">
+              <option value="all">All categories</option>
+              <option>Food</option><option>Transport</option><option>Entertainment</option><option>Utilities</option><option>Other</option>
+            </select>
+          </div>
+          <div class="filter-control">
+            <label for="sortOrder">Sort by date</label>
+            <select id="sortOrder">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+          </div>
+          <div class="filter-control date-filter">
+            <label for="dateFilter">Filter by date</label>
+            <input id="dateFilter" type="date">
+          </div>
+          <button class="clear-filters" id="clearFilters" type="button">Reset</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Expense</th><th>Category</th><th class="amount-heading">Amount</th><th><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody id="expenseRows"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState">
+            <div class="empty-illustration">₹</div>
+            <h3>No expenses yet</h3>
+            <p>Add your first expense to start tracking your spending.</p>
+          </div>
+        </div>
+        <p class="table-footnote">Showing your saved expenses. Use the filters to narrow the list.</p>
+      </section>
+    </section>
+    <footer>Made for mindful spending <span>•</span> Spendwise</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
